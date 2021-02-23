@@ -23,6 +23,7 @@ const Products = () => {
   const [Sort,setSort] = useState('')
   const [Isactive,setIsactive] = useState('')
   const [Isactivesize,setIsactivesize] = useState('')
+  
   const seletsize = (option) => {
     switch (option) {
       case 'xs':
@@ -140,11 +141,18 @@ const Products = () => {
                  <h5 className="name">{product.name}</h5>
       
                </div>
+               <div className="proPrice">
+                 <span className="newprice" >${product.price}</span>
+                 <span className="oldprice" >${product.compare_at_price}</span>
+                 <span className="discount" > ({((product.compare_at_price - product.price) / product.compare_at_price * 100).toFixed(0)}% OFF)</span>
+               </div>
               
                
                <div className="cartSize">
-               {Isactive===product.id?null:
-               <h3 className="vendor">{product.vendor}</h3>}
+               {Isactive===product.id?null:<>
+               <h3 className="vendor">{product.vendor}</h3>
+               <h5 className="name">{product.name}</h5></>
+               }
                <div className="psize">
                    <div className="optionname" >Select Size: &nbsp;
                <span>
@@ -168,12 +176,8 @@ const Products = () => {
                 :null}
                 
                </div>
-               {Isactive===product.id?null:
-               <div className="proPrice">
-                 <span className="newprice" >${product.price}</span>
-                 <span className="oldprice" >${product.compare_at_price}</span>
-                 <span className="discount" > ({((product.compare_at_price - product.price) / product.compare_at_price * 100).toFixed(0)}% OFF)</span>
-               </div>}
+              
+               
              </div>
       
              {product.tag === 'T-shirt' ? <div className="new">New</div> : ''}
