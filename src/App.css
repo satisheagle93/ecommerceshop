@@ -204,7 +204,7 @@ button{
   outline: none;
 }
 .optionname > span > .active {
-  border:2px solid #ac4204;
+  border:2px solid #d45308;
   background: #f57224;
   color: #fff;
 }
@@ -732,10 +732,10 @@ display: none;
   padding: 15px;
 }
 .sizebtn{
-  border: 1px solod #333;
+  border: 2px solid #dadada;
   padding: 3px;
   border-radius: 10px;
-  background: #fff;
+  
   margin-right: 2px;
 }
 @media(max-width: 765px){
