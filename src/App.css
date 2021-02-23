@@ -659,6 +659,9 @@ text-overflow: ellipsis;
   min-width: 100%;
  
 }
+.product:hover .productDetails {
+  padding: 15px 10px 5px 10px;
+}
 .product:hover .proName ,.proPrice{
 display: none;
 }
