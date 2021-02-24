@@ -3,7 +3,7 @@ import { productContext } from "../../Global/productContext"
 import { cartContext } from "../../Global/cartContext"
 import Breadcrumb from '../Utilities/Breadcrumb'
 import Banner from "../Utilities/Banner"
-
+// import Loading from "../Utilities/Loading";
 // import axios from 'axios';
 const filterlist  = [
   {Name:"All products",value:"all",brand:""},
@@ -22,7 +22,10 @@ const Products = () => {
   const [activeFilter,setActiveFilter] =useState("All products")
   const [Sort,setSort] = useState('')
   const [Isactive,setIsactive] = useState('')
-  const [Isactivesize,setIsactivesize] = useState('')
+  // const [Isactivesize,setIsactivesize] = useState('')
+  const [Isbtnsize,setIsbtnsize] = useState('')
+  
+  
   const seletsize = (option) => {
     switch (option) {
       case 'xs':
@@ -59,8 +62,11 @@ const Products = () => {
         return option;
     }
   }
-  const setsize=(id)=>{
-    setIsactivesize(id)
+  const setsize=(value,id)=>{
+    setIsbtnsize(id)
+    // let sizename= seletsize(value)
+    // setIsactivesize(sizename)
+    //  console.log(sizename)
   }
   const filerProducts=(type,brand)=>{
     let filterByType =[]
@@ -82,7 +88,9 @@ const Products = () => {
    }
 
     
-  
+  //  if (Loading) {
+  //   return <Loading />;
+  // }
   return (
     <div>
       <Banner />
@@ -140,22 +148,30 @@ const Products = () => {
                  <h5 className="name">{product.name}</h5>
       
                </div>
+               <div className="proPrice">
+                 <span className="newprice" >${product.price}</span>
+                 <span className="oldprice" >${product.compare_at_price}</span>
+                 <span className="discount" > ({((product.compare_at_price - product.price) / product.compare_at_price * 100).toFixed(0)}% OFF)</span>
+               </div>
               
                
                <div className="cartSize">
-               {Isactive===product.id?null:
-               <h3 className="vendor">{product.vendor}</h3>}
+               {Isactive===product.id?null:<>
+               <h3 className="vendor">{product.vendor}</h3>
+               <h5 className="name">{product.name}</h5></>
+               }
                <div className="psize">
                    <div className="optionname" >Select Size: &nbsp;
                <span>
                       
                        {product.options.map((size,i)=>
-                       <button className={Isactivesize===size.id? 'active sizebtn': ' sizebtn'} 
+                       <button className={Isbtnsize===size.id? 'active sizebtn': ' sizebtn'} 
                        key={i} 
                        onClick={()=>{
                         
                         setIsactive(product.id)
-                        setsize(size.id)
+                        
+                        setsize(size.value,size.id)
                         }}>{seletsize(size.value)}</button>)}
                      </span>
                    </div>
@@ -164,16 +180,12 @@ const Products = () => {
                
                 {Isactive===product.id?
                
-                    <button id="add_btn" className="proButton" onClick={() => {dispatch({ type: 'ADD_TO_CART', id: product.id, products })}}>Add To Cart</button>
+                    <button id="add_btn" className="proButton" onClick={() => {dispatch({ type: 'ADD_TO_CART', id: product.id, products , message:"Added To Cart"})}}>Add To Cart</button>
                 :null}
                 
                </div>
-               {Isactive===product.id?null:
-               <div className="proPrice">
-                 <span className="newprice" >${product.price}</span>
-                 <span className="oldprice" >${product.compare_at_price}</span>
-                 <span className="discount" > ({((product.compare_at_price - product.price) / product.compare_at_price * 100).toFixed(0)}% OFF)</span>
-               </div>}
+              
+               
              </div>
       
              {product.tag === 'T-shirt' ? <div className="new">New</div> : ''}

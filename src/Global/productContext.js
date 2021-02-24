@@ -7,9 +7,10 @@ export const productContext = createContext();
 
 const ProductContextProvider = (props) => {
     
-
+    
+// console.log(pdata);
     const [products] = useReducer(ProductReducer,pdata)
-      
+    
     return(
         <productContext.Provider value={{products}}>
            {props.children}

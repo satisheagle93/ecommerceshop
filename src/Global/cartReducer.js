@@ -1,10 +1,11 @@
-
+import {  toast } from 'react-toastify';
 export const CartReducer = (state, action) => {
-    let {shoppingCart, totalPrice, qty,size} = state;
+    let {shoppingCart, totalPrice, qty, size} = state;
     let product;
     let index;
     let updatedPrice;
     let updatedQty;
+    let psize;
     
     switch(action.type){
         case 'ADD_TO_CART': 
@@ -15,12 +16,18 @@ export const CartReducer = (state, action) => {
             return {shoppingCart: [...shoppingCart], totalPrice, message: 'add', qty,size:size};
         } else {
             product = action.products.find(product  => product.id === action.id);
+            // psize=action.size;
+            //  console.log('ps',psize)
             product['qty'] = 1;
             updatedQty = qty + 1;
             updatedPrice = totalPrice + product.price * product.qty;
+            toast.success(action.message, {
+                position: toast.POSITION.TOP_LEFT,
+                autoClose: 1500
+              })
             
-            
-           return {shoppingCart: [product,...shoppingCart], totalPrice: updatedPrice, message: 'added successfully', qty: updatedQty,size:size};
+           return {shoppingCart: [product,...shoppingCart], totalPrice: updatedPrice, message: 'added successfully', qty: updatedQty, size:psize
+         };
         }
       
         case 'DELETE_PRODUCT':

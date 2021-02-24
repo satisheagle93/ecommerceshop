@@ -8,8 +8,9 @@ import 'react-toastify/dist/ReactToastify.css';
 toast.configure();
 const Cart = (props) => {
  
-    const {dispatch, shoppingCart, totalPrice, qty} = useContext(cartContext);
-        //  console.log("total qty: ",qty);
+    const {dispatch, shoppingCart, totalPrice, qty, size} = useContext(cartContext);
+          console.log(" size: ",size);
+          
         //  console.log("total price: ",totalPrice);
         
     const handleToken = async (token) => {
@@ -48,6 +49,9 @@ const Cart = (props) => {
         <span className="cartProductPrice">${product.price}</span>
         <span className="inc" onClick={() => dispatch({type: 'INC', id:product.id})}><i className="fas fa-plus"></i></span>
         <span className="productQuantity">{product.qty}</span>
+     
+            <span className="productSize">{size}</span>
+        
         <span className="dec" onClick={() => dispatch({type: 'DEC', id: product.id})}><i className="fas fa-minus"></i></span>
         <span className="productTotalPrice">${product.qty * product.price}</span>
         <button onClick={() => {if(window.confirm('Are you sure to Remove this Product From Cart?')){ dispatch({type: 'DELETE_PRODUCT', id: product.id})};}} className="deleteCartPro"><i className="fas fa-trash-alt"></i></button>
