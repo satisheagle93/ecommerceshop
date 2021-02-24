@@ -3,7 +3,7 @@ import { productContext } from "../../Global/productContext"
 import { cartContext } from "../../Global/cartContext"
 import Breadcrumb from '../Utilities/Breadcrumb'
 import Banner from "../Utilities/Banner"
-// import Loading from "../Utilities/Loading";
+
 // import axios from 'axios';
 const filterlist  = [
   {Name:"All products",value:"all",brand:""},
@@ -22,9 +22,7 @@ const Products = () => {
   const [activeFilter,setActiveFilter] =useState("All products")
   const [Sort,setSort] = useState('')
   const [Isactive,setIsactive] = useState('')
-  // const [Isactivesize,setIsactivesize] = useState('')
-  const [Isbtnsize,setIsbtnsize] = useState('')
-  
+  const [Isactivesize,setIsactivesize] = useState('')
   
   const seletsize = (option) => {
     switch (option) {
@@ -62,11 +60,8 @@ const Products = () => {
         return option;
     }
   }
-  const setsize=(value,id)=>{
-    setIsbtnsize(id)
-    // let sizename= seletsize(value)
-    // setIsactivesize(sizename)
-    //  console.log(sizename)
+  const setsize=(id)=>{
+    setIsactivesize(id)
   }
   const filerProducts=(type,brand)=>{
     let filterByType =[]
@@ -88,9 +83,7 @@ const Products = () => {
    }
 
     
-  //  if (Loading) {
-  //   return <Loading />;
-  // }
+  
   return (
     <div>
       <Banner />
@@ -165,13 +158,12 @@ const Products = () => {
                <span>
                       
                        {product.options.map((size,i)=>
-                       <button className={Isbtnsize===size.id? 'active sizebtn': ' sizebtn'} 
+                       <button className={Isactivesize===size.id? 'active sizebtn': ' sizebtn'} 
                        key={i} 
                        onClick={()=>{
                         
                         setIsactive(product.id)
-                        
-                        setsize(size.value,size.id)
+                        setsize(size.id)
                         }}>{seletsize(size.value)}</button>)}
                      </span>
                    </div>
@@ -180,7 +172,7 @@ const Products = () => {
                
                 {Isactive===product.id?
                
-                    <button id="add_btn" className="proButton" onClick={() => {dispatch({ type: 'ADD_TO_CART', id: product.id, products , message:"Added To Cart"})}}>Add To Cart</button>
+                    <button id="add_btn" className="proButton" onClick={() => {dispatch({ type: 'ADD_TO_CART', id: product.id, products })}}>Add To Cart</button>
                 :null}
                 
                </div>
